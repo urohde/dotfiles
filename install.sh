@@ -16,3 +16,7 @@ ln -s $SCRIPT_DIR/config/ranger $HOME/.config/ranger
 
 # flameshot
 ln -s $SCRIPT_DIR/config/flameshot $HOME/.config/flameshot
+
+# corsair keyboard rgb
+ln -s $SCRIPT_DIR/config/ckb-next $HOME/.config/ckb-next
+
