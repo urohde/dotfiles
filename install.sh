@@ -3,27 +3,99 @@
 SCRIPT_DIR=$(pwd)
 CONFIG_DIR=$HOME/.config
 
+INSTALL=false
+UBUNTU=false
+
+while getopts 'iu' OPTION; do 
+  case "$OPTION" in 
+    u)
+      UBUNTU=true
+      ;;
+    i)
+      INSTALL=true
+  esac
+done
+
 function link_directory() {
     [ ! -d $2 ] && ln -s $1 $2
 }
 
+# dependencies
+if INSTALL
+then
+  if UBUNTU
+  then
+    sudo apt install build-essential
+    sudo apt install git
+    sudo apt install curl
+  fi
+fi
+
 # zsh
 ln -s $SCRIPT_DIR/zshrc $HOME/.zshrc
 ln -s $SCRIPT_DIR/p10k.zsh $HOME/.p10k.zsh
+ln -s $SCRIPT_DIR/oh-my-zsh/alias.zsh $HOME/.oh-my-zsh/custom/alias.zsh
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
 
-# i3
-link_directory $SCRIPT_DIR/config/i3 $CONFIG_DIR/i3
+# fzf
+if INSTALL
+then
+  if UBUNTU
+  then
+    sudo apt install fzf
+  fi
+fi
 
-# rofi
-link_directory $SCRIPT_DIR/config/rofi $CONFIG_DIR/rofi
+# exa
+if INSTALL 
+then
+  if UBUNTU 
+  then
+    sudo apt install exa
+  fi
+fi
+
+# zoxide
+if INSTALL
+then
+  if UBUNTU 
+  then
+    sudo apt install zoxide
+  fi
+fi
 
 # nvim
-link_directory $SCRIPT_DIR/config/nvim $CONFIG_DIR/nvim
+if INSTALL
+then
+  if UBUNTU
+  then
+    curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim.appimage\nchmod u+x nvim.appimage\n./nvim.appimage
+    ./nvim.appimage --appimage-extract                                                                                               TSTP ✘  40s    19:12:04 
+    ./squashfs-root/AppRun --version              
+    sudo mv squashfs-root /
+    sudo ln -s /squashfs-root/AppRun /usr/bin/nvim
+  fi
+fi
+
+# lvim
+if INSTALL
+then
+  LV_BRANCH='release-1.3/neovim-0.9' bash <(curl -s https://raw.githubusercontent.com/LunarVim/LunarVim/release-1.3/neovim-0.9/utils/installer/install.sh)
+fi
+
+ln -s $SCRIPT_DIR/config/lvim/config.lua $CONFIG_DIR/lvim/config.lua
 
 # ranger
-#sudo apt install ranger
+if INSTALL 
+then
+  if UBUNTU
+  then
+    sudo apt install ranger
+  fi
+  git clone https://github.com/alexanderjeurissen/ranger_devicons $CONFIG_DIR/ranger/plugins/ranger_devicons
+fi
+
 link_directory $SCRIPT_DIR/config/ranger $CONFIG_DIR/ranger
-#git clone https://github.com/alexanderjeurissen/ranger_devicons $CONFIG_DIR/ranger/plugins/ranger_devicons
 
 # flameshot
 link_directory $SCRIPT_DIR/config/flameshot $CONFIG_DIR/flameshot

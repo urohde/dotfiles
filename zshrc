@@ -1,15 +1,10 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:/usr/local/bin:$PATH
 
+export PATH=$HOME/.local/bin:$PATH
+
 # Path to your oh-my-zsh installation.
-export ZSH="/home/ulrik/.oh-my-zsh"
+export ZSH=$HOME/.oh-my-zsh
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -27,7 +22,9 @@ source $ZSH/oh-my-zsh.sh
 RANGER_LOAD_DEFAULT_RC=false
 export EDITOR=nvim
 
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+#eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+eval "$(zoxide init zsh)"
 
 APPEND_HISTORY="true"
 export USE_GKE_GCLOUD_AUTH_PLUGIN=True
@@ -38,13 +35,13 @@ export USE_GKE_GCLOUD_AUTH_PLUGIN=True
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 
-export PATH=$PATH:/usr/local/go/bin
-[[ -s "/home/ulrik/.gvm/scripts/gvm" ]] && source "/home/ulrik/.gvm/scripts/gvm"
+#export PATH=$PATH:/usr/local/go/bin
+#[[ -s "/home/ulrik/.gvm/scripts/gvm" ]] && source "/home/ulrik/.gvm/scripts/gvm"
 
 # pnpm
-export PNPM_HOME="/home/ulrik/.local/share/pnpm"
-export PATH="$PNPM_HOME:$PATH"
+#export PNPM_HOME="/home/ulrik/.local/share/pnpm"
+#export PATH="$PNPM_HOME:$PATH"
 # pnpm end
 
 # Created by `pipx` on 2023-03-15 09:12:12
-export PATH="$PATH:/home/ulrik/.local/bin"
+#export PATH="$PATH:/home/ulrik/.local/bin"
