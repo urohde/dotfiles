@@ -21,9 +21,9 @@ function link_directory() {
 }
 
 # dependencies
-if INSTALL
+if $INSTALL
 then
-  if UBUNTU
+  if $UBUNTU
   then
     sudo apt install build-essential
     sudo apt install git
@@ -38,36 +38,36 @@ ln -s $SCRIPT_DIR/oh-my-zsh/alias.zsh $HOME/.oh-my-zsh/custom/alias.zsh
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
 
 # fzf
-if INSTALL
+if $INSTALL
 then
-  if UBUNTU
+  if $UBUNTU
   then
     sudo apt install fzf
   fi
 fi
 
 # exa
-if INSTALL 
+if $INSTALL 
 then
-  if UBUNTU 
+  if $UBUNTU 
   then
     sudo apt install exa
   fi
 fi
 
 # zoxide
-if INSTALL
+if $INSTALL
 then
-  if UBUNTU 
+  if $UBUNTU 
   then
     sudo apt install zoxide
   fi
 fi
 
 # nvim
-if INSTALL
+if $INSTALL
 then
-  if UBUNTU
+  if $UBUNTU
   then
     curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim.appimage\nchmod u+x nvim.appimage\n./nvim.appimage
     ./nvim.appimage --appimage-extract                                                                                               TSTP ✘  40s    19:12:04 
@@ -78,7 +78,7 @@ then
 fi
 
 # lvim
-if INSTALL
+if $INSTALL
 then
   LV_BRANCH='release-1.3/neovim-0.9' bash <(curl -s https://raw.githubusercontent.com/LunarVim/LunarVim/release-1.3/neovim-0.9/utils/installer/install.sh)
 fi
@@ -86,9 +86,9 @@ fi
 ln -s $SCRIPT_DIR/config/lvim/config.lua $CONFIG_DIR/lvim/config.lua
 
 # ranger
-if INSTALL 
+if $INSTALL 
 then
-  if UBUNTU
+  if $UBUNTU
   then
     sudo apt install ranger
   fi
@@ -102,4 +102,14 @@ link_directory $SCRIPT_DIR/config/flameshot $CONFIG_DIR/flameshot
 
 # corsair keyboard rgb
 link_directory $SCRIPT_DIR/config/ckb-next $CONFIG_DIR/ckb-next
+
+# alacritty
+link_directory $SCRIPT_DIR/config/alacritty $CONFIG_DIR/alacritty
+
+# qtile
+if $INSTALL 
+then
+  pip install xcffib
+  pip install qtile
+fi
 

@@ -45,3 +45,5 @@ export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || pr
 
 # Created by `pipx` on 2023-03-15 09:12:12
 #export PATH="$PATH:/home/ulrik/.local/bin"
+
+fpath+=${ZDOTDIR:-~}/.zsh_functions
