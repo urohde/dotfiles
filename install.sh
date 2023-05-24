@@ -113,3 +113,14 @@ then
   pip install qtile
 fi
 
+# rofi
+link_directory $SCRIPT_DIR/config/rofi $CONFIG_DIR/rofi
+
+if $INSTALL
+then
+  if $UBUNTU
+  then
+    sudo apt install rofi
+  fi
+fi
+
