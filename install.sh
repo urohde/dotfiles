@@ -107,6 +107,8 @@ link_directory $SCRIPT_DIR/config/ckb-next $CONFIG_DIR/ckb-next
 link_directory $SCRIPT_DIR/config/alacritty $CONFIG_DIR/alacritty
 
 # qtile
+link_directory $SCRIPT_DIR/config/qtile $CONFIG_DIR/qtile
+
 if $INSTALL 
 then
   pip install xcffib
