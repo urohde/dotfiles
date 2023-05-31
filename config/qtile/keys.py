@@ -1,4 +1,4 @@
-from libqtile.config import Key
+from libqtile.config import Key, KeyChord
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 from libqtile.config import Click, Drag, Key
@@ -46,5 +46,8 @@ keys = [
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
     Key([mod, "shift"], "r", lazy.spawn("rofi -show run"), desc="Run script using rofi"),
     Key([mod], "r", lazy.spawn("rofi -show drun"), desc="Open application using rofi"),
+    KeyChord([], "pause", [
+        Key([], "pause", lazy.spawn("betterlockscreen -l"), desc="Lock screen")
+        ]),
 ]
 
