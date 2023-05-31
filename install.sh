@@ -126,3 +126,6 @@ then
   fi
 fi
 
+# betterlockscreen
+ln -s $SCRIPT_DIR/config/betterlockscreen/betterlockscreenrc $CONFIG_DIR/betterlockscreen/betterlockscreenrc
+
