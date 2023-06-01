@@ -113,6 +113,10 @@ if $INSTALL
 then
   pip install xcffib
   pip install qtile
+  if $UBUNTU
+  then
+    sudo cp $SCRIPT_DIR/qtile.desktop /usr/share/xsessions/qtile.desktop
+  fi
 fi
 
 # rofi
@@ -128,4 +132,7 @@ fi
 
 # betterlockscreen
 ln -s $SCRIPT_DIR/config/betterlockscreen/betterlockscreenrc $CONFIG_DIR/betterlockscreen/betterlockscreenrc
+
+# dunst
+link_directory $SCRIPT_DIR/config/dunst $CONFIG_DIR/dunst
 
