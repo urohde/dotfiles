@@ -78,12 +78,13 @@ then
 fi
 
 # lvim
+ln -s $SCRIPT_DIR/config/lvim/config.lua $CONFIG_DIR/lvim/config.lua
+
 if $INSTALL
 then
   LV_BRANCH='release-1.3/neovim-0.9' bash <(curl -s https://raw.githubusercontent.com/LunarVim/LunarVim/release-1.3/neovim-0.9/utils/installer/install.sh)
 fi
 
-ln -s $SCRIPT_DIR/config/lvim/config.lua $CONFIG_DIR/lvim/config.lua
 
 # ranger
 if $INSTALL 
