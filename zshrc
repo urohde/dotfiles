@@ -32,18 +32,15 @@ export USE_GKE_GCLOUD_AUTH_PLUGIN=True
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
-
 #export PATH=$PATH:/usr/local/go/bin
-#[[ -s "/home/ulrik/.gvm/scripts/gvm" ]] && source "/home/ulrik/.gvm/scripts/gvm"
+#[[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
 
 # pnpm
-#export PNPM_HOME="/home/ulrik/.local/share/pnpm"
+#export PNPM_HOME="$HOME/.local/share/pnpm"
 #export PATH="$PNPM_HOME:$PATH"
 # pnpm end
 
 # Created by `pipx` on 2023-03-15 09:12:12
-#export PATH="$PATH:/home/ulrik/.local/bin"
+#export PATH="$PATH:$HOME/.local/bin"
 
 fpath+=${ZDOTDIR:-~}/.zsh_functions
