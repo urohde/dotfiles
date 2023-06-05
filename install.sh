@@ -137,3 +137,5 @@ ln -s $SCRIPT_DIR/config/betterlockscreen/betterlockscreenrc $CONFIG_DIR/betterl
 # dunst
 link_directory $SCRIPT_DIR/config/dunst $CONFIG_DIR/dunst
 
+# tmux
+ln -s $SCRIPT_DIR/tmux.conf $HOME/.tmux.conf
