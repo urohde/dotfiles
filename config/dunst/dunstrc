@@ -21,7 +21,7 @@
 
     ### Geometry ###
 
-    geometry = "300x5-30+20"
+    geometry = "400x5-30+20"
 
     # Maximum number of notification (0 means no limit)
     notification_limit = 20

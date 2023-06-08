@@ -19,8 +19,8 @@ if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
 fi
 
 if ! tmux has-session -t=$selected_name 2> /dev/null; then
-  if $selected_name == "techyon-ui" then
-    tmux new-session -ds $selected_name -c $selected -n lvim "lvim $(find $selected/services -mindepth 1 -maxdepth 1 -type d | fzf)"
+  if [[ "$selected_name" == *techyon-ui ]]; then
+    tmux new-session -ds $selected_name -c $selected -n lvim "lvim $(find $selected/services -mindepth 1 -maxdepth 1 -type d | fzf)/."
     tmux new-window -dt $selected_name -n node mprocs
     tmux new-window -dt $selected_name -n shell
   else

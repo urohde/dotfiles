@@ -1,6 +1,7 @@
 from libqtile.config import Screen
 import subprocess
 from libqtile import hook
+from libqtile.log_utils import logger
 from bars import main_bar
 from Xlib import display as xdisplay
 
@@ -33,3 +34,4 @@ screens = [Screen(top=main_bar)]
 if num_monitors > 1:
     for m in range(num_monitors - 1):
         screens.append(Screen())
+

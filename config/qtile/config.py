@@ -1,5 +1,6 @@
 from libqtile import layout, hook
 from libqtile.config import Match
+from libqtile.log_utils import logger
 import os
 import subprocess
 
@@ -61,3 +62,4 @@ def autostart():
 auto_minimize = True
 
 wmname = "qtile"
+
