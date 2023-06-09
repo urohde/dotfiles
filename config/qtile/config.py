@@ -10,7 +10,7 @@ from keys import keys
 
 layouts = [
     # layout.Columns(border_focus_stack=["#d75f5f"], border_width=2),
-    layout.MonadTall(),
+    layout.MonadTall(border_focus="#8403fc"),
     layout.Max(),
     # Try more layouts by unleashing below layouts.
     # layout.Stack(num_stacks=2),
