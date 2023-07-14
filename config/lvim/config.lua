@@ -47,7 +47,23 @@ lvim.builtin.treesitter.auto_install = true
 -- -- always installed on startup, useful for parsers without a strict filetype
 -- lvim.builtin.treesitter.ensure_installed = { "comment", "markdown_inline", "regex" }
 
+table.insert(lvim.plugins, {
+  "zbirenbaum/copilot-cmp",
+  event = "InsertEnter",
+  dependencies = { "zbirenbaum/copilot.lua" },
+  config = function()
+    vim.defer_fn(function()
+      require("copilot").setup()     -- https://github.com/zbirenbaum/copilot.lua/blob/master/README.md#setup-and-configuration
+      require("copilot_cmp").setup() -- https://github.com/zbirenbaum/copilot-cmp/blob/master/README.md#configuration
+    end, 100)
+  end,
+})
+
 -- -- generic LSP settings <https://www.lunarvim.org/docs/languages#lsp-support>
+
+lvim.builtin.cmp.sources = vim.tbl_filter(function(source)
+  return source.name ~= "buffer"
+end, lvim.builtin.cmp.sources)
 
 -- --- disable automatic installation of servers
 -- lvim.lsp.installer.setup.automatic_installation = false
@@ -60,9 +76,13 @@ lvim.builtin.treesitter.auto_install = true
 
 -- ---remove a server from the skipped list, e.g. eslint, or emmet_ls. IMPORTANT: Requires `:LvimCacheReset` to take effect
 -- ---`:LvimInfo` lists which server(s) are skipped for the current filetype
--- lvim.lsp.automatic_configuration.skipped_servers = vim.tbl_filter(function(server)
---   return server ~= "java_language_server"
--- end, lvim.lsp.automatic_configuration.skipped_servers)
+lvim.lsp.automatic_configuration.skipped_servers = vim.tbl_filter(function(server)
+  return server ~= "eslint"
+end, lvim.lsp.automatic_configuration.skipped_servers)
+
+-- lvim.lsp.automatic_configuration.skipped_filetypes = vim.tbl_filter(function(filetype)
+--   return filetype ~= "proto"
+-- end, lvim.lsp.automatic_configuration.skipped_filetypes)
 
 -- -- you can set a custom on_attach function that will be used for all the language servers
 -- -- See <https://github.com/neovim/nvim-lspconfig#keybindings-and-completion>
