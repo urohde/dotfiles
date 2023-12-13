@@ -67,6 +67,12 @@ keys = [
     Key([], "XF86AudioMicMute", lazy.spawn("amixer -q -D pulse set Capture togglemute")),
     Key([], "XF86MonBrightnessDown", lazy.spawn("xbacklight -5")),
     Key([], "XF86MonBrightnessUp", lazy.spawn("xbacklight +5")),
+    Key([], "XF86AudioPlay", lazy.spawn("playerctl play-pause")),
+    Key([], "XF86AudioNext", lazy.spawn("playerctl next")),
+    Key([], "XF86AudioPrev", lazy.spawn("playerctl previous")),
+    Key([], "XF86AudioStop", lazy.spawn("playerctl stop")),
+    Key([], "XF86AudioRewind", lazy.spawn("playerctl position 10-")),
+    Key([], "XF86AudioForward", lazy.spawn("playerctl position 10+")),
 ]
 
 def go_to_group(name: str) -> Callable:
