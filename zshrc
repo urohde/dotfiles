@@ -48,3 +48,10 @@ export PATH="$PNPM_HOME:$PATH"
 # pnpm end
 
 fpath+=${ZDOTDIR:-~}/.zsh_functions
+
+# bun completions
+[ -s "/home/ulrik/.bun/_bun" ] && source "/home/ulrik/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
