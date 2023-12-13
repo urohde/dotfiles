@@ -8,6 +8,8 @@ vim.opt.tabstop = 2
 vim.opt.relativenumber = true
 vim.opt.autoread = true
 
+vim.g.tpipeline_autoembed = 0
+
 -- general
 lvim.log.level = "info"
 lvim.format_on_save = {
@@ -15,6 +17,7 @@ lvim.format_on_save = {
   pattern = "*.lua",
   timeout = 1000,
 }
+
 -- to disable icons and use a minimalist setup, uncomment the following
 -- lvim.use_icons = false
 
@@ -23,6 +26,7 @@ lvim.leader = "space"
 
 lvim.keys.normal_mode["<C-d>"] = "<C-d>zz"
 lvim.keys.normal_mode["<C-u>"] = "<C-u>zz"
+lvim.keys.normal_mode["<leader>lF"] = ":EslintFixAll<CR>"
 -- lvim.keys.normal_mode["<S-l>"] = ":BufferLineCycleNext<CR>"
 -- lvim.keys.normal_mode["<S-h>"] = ":BufferLineCyclePrev<CR>"
 
@@ -46,18 +50,6 @@ lvim.builtin.treesitter.auto_install = true
 
 -- -- always installed on startup, useful for parsers without a strict filetype
 -- lvim.builtin.treesitter.ensure_installed = { "comment", "markdown_inline", "regex" }
-
-table.insert(lvim.plugins, {
-  "zbirenbaum/copilot-cmp",
-  event = "InsertEnter",
-  dependencies = { "zbirenbaum/copilot.lua" },
-  config = function()
-    vim.defer_fn(function()
-      require("copilot").setup()     -- https://github.com/zbirenbaum/copilot.lua/blob/master/README.md#setup-and-configuration
-      require("copilot_cmp").setup() -- https://github.com/zbirenbaum/copilot-cmp/blob/master/README.md#configuration
-    end, 100)
-  end,
-})
 
 -- -- generic LSP settings <https://www.lunarvim.org/docs/languages#lsp-support>
 
@@ -113,27 +105,51 @@ end, lvim.lsp.automatic_configuration.skipped_servers)
 -- }
 
 -- Additional Plugins <https://www.lunarvim.org/docs/plugins#user-plugins>
--- lvim.plugins = {
---   {
---     "tpope/vim-fugitive",
---     cmd = {
---       "G",
---       "Git",
---       "Gdiffsplit",
---       "Gread",
---       "Gwrite",
---       "Ggrep",
---       "GMove",
---       "GDelete",
---       "GBrowse",
---       "GRemove",
---       "GRename",
---       "Glgrep",
---       "Gedit"
---     },
---     ft = { "fugitive" }
---   },
--- }
+lvim.plugins = {
+  {
+    'vimpostor/vim-tpipeline'
+  },
+  {
+    "tpope/vim-surround",
+    -- make sure to change the value of `timeoutlen` if it's not triggering correctly, see https://github.com/tpope/vim-surround/issues/117
+    -- setup = function()
+    --  vim.o.timeoutlen = 500
+    -- end
+  },
+  {
+    "zbirenbaum/copilot-cmp",
+    event = "InsertEnter",
+    dependencies = { "zbirenbaum/copilot.lua" },
+    config = function()
+      vim.defer_fn(function()
+        require("copilot").setup()     -- https://github.com/zbirenbaum/copilot.lua/blob/master/README.md#setup-and-configuration
+        require("copilot_cmp").setup() -- https://github.com/zbirenbaum/copilot-cmp/blob/master/README.md#configuration
+      end, 100)
+    end,
+  },
+  {
+    'nvim-treesitter/nvim-treesitter-context'
+  }
+  --   {
+  --     "tpope/vim-fugitive",
+  --     cmd = {
+  --       "G",
+  --       "Git",
+  --       "Gdiffsplit",
+  --       "Gread",
+  --       "Gwrite",
+  --       "Ggrep",
+  --       "GMove",
+  --       "GDelete",
+  --       "GBrowse",
+  --       "GRemove",
+  --       "GRename",
+  --       "Glgrep",
+  --       "Gedit"
+  --     },
+  --     ft = { "fugitive" }
+  --   },
+}
 
 -- -- Autocommands (`:help autocmd`) <https://neovim.io/doc/user/autocmd.html>
 -- vim.api.nvim_create_autocmd("FileType", {
@@ -143,3 +159,29 @@ end, lvim.lsp.automatic_configuration.skipped_servers)
 --     require("nvim-treesitter.highlight").attach(0, "bash")
 --   end,
 -- })
+--
+--
+local mason_path = vim.fn.glob(vim.fn.stdpath "data" .. "/mason/")
+local codelldb_adapter = {
+  type = "server",
+  port = "${port}",
+  executable = {
+    command = mason_path .. "bin/codelldb",
+    args = { "--port", "${port}" },
+  },
+}
+lvim.builtin.dap.on_config_done = function(dap)
+  dap.adapters.codelldb = codelldb_adapter
+  dap.configurations.rust = {
+    {
+      name = "Launch file",
+      type = "codelldb",
+      request = "launch",
+      program = function()
+        return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+      end,
+      cwd = "${workspaceFolder}",
+      stopOnEntry = false,
+    },
+  }
+end
