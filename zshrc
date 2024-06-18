@@ -28,6 +28,7 @@ source $ZSH/oh-my-zsh.sh
 
 RANGER_LOAD_DEFAULT_RC=false
 export EDITOR=nvim
+export PATH=$HOME/.local/share/bob/nvim-bin:$PATH
 
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
@@ -55,3 +56,5 @@ fpath+=${ZDOTDIR:-~}/.zsh_functions
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+
+export PATH="$HOME/Documents/techyon/doom-patrol-scripts/bin:$PATH"
