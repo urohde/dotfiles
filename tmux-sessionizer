@@ -20,11 +20,15 @@ fi
 
 if ! tmux has-session -t=$selected_name 2> /dev/null; then
   if [[ "$selected_name" == *techyon-ui ]]; then
-    tmux new-session -ds $selected_name -c $selected -n lvim "lvim $(find $selected/services -mindepth 1 -maxdepth 1 -type d | fzf)/."
-    tmux new-window -dt $selected_name -c $selected -n node mprocs
-    tmux new-window -dt $selected_name -c $selected -n shell
+    selected_service=$(find $selected/services -mindepth 1 -maxdepth 1 -type d | fzf)
+    tmux new-session -ds $selected_name -c $selected -n vim
+    tmux send-keys -t $selected_name':vim' "vim $selected_service/." Enter
+    tmux new-window -dt $selected_name -c $selected_service -n mprocs 
+    tmux send-keys -t $selected_name':mprocs' "mprocs --npm" Enter
+    tmux new-window -dt $selected_name -c $selected_service -n shell
   else
-    tmux new-session -ds $selected_name -c $selected -n lvim "lvim ."
+    tmux new-session -ds $selected_name -c $selected -n vim
+    tmux send-keys -t $selected_name':vim' "vim ." Enter
     tmux new-window -dt $selected_name -c $selected -n shell
   fi
 fi
