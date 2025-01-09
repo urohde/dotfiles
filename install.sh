@@ -51,7 +51,7 @@ if $INSTALL
 then
   if $UBUNTU 
   then
-    sudo apt install exa
+    sudo apt install eza
   fi
 fi
 
@@ -70,7 +70,7 @@ then
   if $UBUNTU
   then
     curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim.appimage\nchmod u+x nvim.appimage\n./nvim.appimage
-    ./nvim.appimage --appimage-extract                                                                                               TSTP ✘  40s    19:12:04 
+    ./nvim.appimage --appimage-extract
     ./squashfs-root/AppRun --version              
     sudo mv squashfs-root /
     sudo ln -s /squashfs-root/AppRun /usr/bin/nvim
