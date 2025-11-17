@@ -6,3 +6,5 @@ alias kfwd="kubefwd"
 # exa
 alias l="exa -l --icons --group-directories-first --no-permissions"
 alias la="l -a"
+
+alias vim="nvim"

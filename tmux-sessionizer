@@ -3,7 +3,30 @@
 if [[ $# -eq 1 ]]; then
     selected=$1
 else
-    selected=$(find ~/Documents/techyon -mindepth 1 -maxdepth 1 -type d | fzf)
+    # Get current tmux session names
+    existing_sessions=$(tmux list-sessions -F "#S" 2>/dev/null)
+
+    # Collect directories, filter out ones that match existing session names
+    directories=$(
+        while read -r base_dir; do
+            [[ -d "$base_dir" ]] || continue
+            find "$base_dir" -mindepth 1 -maxdepth 1 -type d 2>/dev/null
+        done < ~/.tmux/sessionizer-directories.txt \
+        | while read -r dir; do
+            name=$(basename "$dir" | tr . _)
+            if ! grep -qx "$name" <<< "$existing_sessions"; then
+                echo "$dir"
+            fi
+        done
+    )
+
+    # Combine everything (fzf shows these in reverse order)
+    selected=$(
+        (
+            echo "$existing_sessions"
+            echo "$directories"
+        ) | fzf
+    )
 fi
 
 if [[ -z $selected ]]; then
@@ -19,18 +42,9 @@ if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
 fi
 
 if ! tmux has-session -t=$selected_name 2> /dev/null; then
-  if [[ "$selected_name" == *techyon-ui ]]; then
-    selected_service=$(find $selected/services -mindepth 1 -maxdepth 1 -type d | fzf)
-    tmux new-session -ds $selected_name -c $selected -n vim
-    tmux send-keys -t $selected_name':vim' "vim $selected_service/." Enter
-    tmux new-window -dt $selected_name -c $selected_service -n mprocs 
-    tmux send-keys -t $selected_name':mprocs' "mprocs --npm" Enter
-    tmux new-window -dt $selected_name -c $selected_service -n shell
-  else
-    tmux new-session -ds $selected_name -c $selected -n vim
-    tmux send-keys -t $selected_name':vim' "vim ." Enter
-    tmux new-window -dt $selected_name -c $selected -n shell
-  fi
+    tmux new-session -ds "$selected_name" -c "$selected" -n vim
+    tmux send-keys -t "$selected_name:vim" "vim ." Enter
+    tmux new-window -dt "$selected_name" -c "$selected" -n shell
 fi
 
 tmux switch-client -t $selected_name

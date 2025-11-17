@@ -40,15 +40,13 @@ export USE_GKE_GCLOUD_AUTH_PLUGIN=True
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-#export PATH=$PATH:/usr/local/go/bin
-[[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
-
-# pnpm
-export PNPM_HOME="$HOME/.local/share/pnpm"
-export PATH="$PNPM_HOME:$PATH"
-# pnpm end
-
 fpath+=${ZDOTDIR:-~}/.zsh_functions
+
+export PATH=$PATH:/usr/local/go/bin
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # bun completions
 [ -s "/home/ulrik/.bun/_bun" ] && source "/home/ulrik/.bun/_bun"
@@ -57,4 +55,9 @@ fpath+=${ZDOTDIR:-~}/.zsh_functions
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
-export PATH="$HOME/Documents/techyon/doom-patrol-scripts/bin:$PATH"
+export PATH="$PATH:/opt/nvim/"
+
+alias podman='podman.exe'
+alias microk8s='/snap/bin/microk8s'
+alias mkctl='microk8s kubectl'
+alias k='microk8s kubectl'

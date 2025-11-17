@@ -2,7 +2,9 @@
 --  I promise not to create any merge conflicts in this directory :)
 --
 -- See the kickstart.nvim README for more information
+
 return {
+	{ "nvim-neotest/nvim-nio" },
 	{
 		"kdheepak/lazygit.nvim",
 		cmd = {
@@ -36,84 +38,223 @@ return {
 	{
 		"tpope/vim-surround",
 	},
-	-- {
-	-- 	"robitx/gp.nvim",
-	-- 	config = function()
-	-- 		local conf = {
-	-- 			-- For customization, refer to Install > Configuration in the Documentation/Readme
-	-- 			providers = {
-	-- 				googleai = {
-	-- 					endpoint = "https://generativelanguage.googleapis.com/v1beta/models/{{model}}:streamGenerateContent?key={{secret}}",
-	-- 					secret = os.getenv("GOOGLEAI_API_KEY"),
-	-- 				},
-	-- 			},
-	-- 		}
-	-- 		require("gp").setup(conf)
-	--
-	-- 		-- Setup shortcuts here (see Usage > Shortcuts in the Documentation/Readme)
-	-- 		-- Chat commands
-	-- 		local function keymapOptions(desc)
-	-- 			return {
-	-- 				noremap = true,
-	-- 				silent = true,
-	-- 				nowait = true,
-	-- 				desc = "GPT prompt " .. desc,
-	-- 			}
-	-- 		end
-	--
-	-- 		vim.keymap.set({ "n", "i" }, "<C-g>c", "<cmd>GpChatNew<cr>", keymapOptions("New Chat"))
-	-- 		vim.keymap.set({ "n", "i" }, "<C-g>t", "<cmd>GpChatToggle<cr>", keymapOptions("Toggle Chat"))
-	-- 		vim.keymap.set({ "n", "i" }, "<C-g>f", "<cmd>GpChatFinder<cr>", keymapOptions("Chat Finder"))
-	--
-	-- 		vim.keymap.set("v", "<C-g>c", ":<C-u>'<,'>GpChatNew<cr>", keymapOptions("Visual Chat New"))
-	-- 		vim.keymap.set("v", "<C-g>p", ":<C-u>'<,'>GpChatPaste<cr>", keymapOptions("Visual Chat Paste"))
-	-- 		vim.keymap.set("v", "<C-g>t", ":<C-u>'<,'>GpChatToggle<cr>", keymapOptions("Visual Toggle Chat"))
-	--
-	-- 		vim.keymap.set({ "n", "i" }, "<C-g><C-x>", "<cmd>GpChatNew split<cr>", keymapOptions("New Chat split"))
-	-- 		vim.keymap.set({ "n", "i" }, "<C-g><C-v>", "<cmd>GpChatNew vsplit<cr>", keymapOptions("New Chat vsplit"))
-	-- 		vim.keymap.set({ "n", "i" }, "<C-g><C-t>", "<cmd>GpChatNew tabnew<cr>", keymapOptions("New Chat tabnew"))
-	--
-	-- 		vim.keymap.set("v", "<C-g><C-x>", ":<C-u>'<,'>GpChatNew split<cr>", keymapOptions("Visual Chat New split"))
-	-- 		vim.keymap.set(
-	-- 			"v",
-	-- 			"<C-g><C-v>",
-	-- 			":<C-u>'<,'>GpChatNew vsplit<cr>",
-	-- 			keymapOptions("Visual Chat New vsplit")
-	-- 		)
-	-- 		vim.keymap.set(
-	-- 			"v",
-	-- 			"<C-g><C-t>",
-	-- 			":<C-u>'<,'>GpChatNew tabnew<cr>",
-	-- 			keymapOptions("Visual Chat New tabnew")
-	-- 		)
-	--
-	-- 		-- Prompt commands
-	-- 		vim.keymap.set({ "n", "i" }, "<C-g>r", "<cmd>GpRewrite<cr>", keymapOptions("Inline Rewrite"))
-	-- 		vim.keymap.set({ "n", "i" }, "<C-g>a", "<cmd>GpAppend<cr>", keymapOptions("Append (after)"))
-	-- 		vim.keymap.set({ "n", "i" }, "<C-g>b", "<cmd>GpPrepend<cr>", keymapOptions("Prepend (before)"))
-	--
-	-- 		vim.keymap.set("v", "<C-g>r", ":<C-u>'<,'>GpRewrite<cr>", keymapOptions("Visual Rewrite"))
-	-- 		vim.keymap.set("v", "<C-g>a", ":<C-u>'<,'>GpAppend<cr>", keymapOptions("Visual Append (after)"))
-	-- 		vim.keymap.set("v", "<C-g>b", ":<C-u>'<,'>GpPrepend<cr>", keymapOptions("Visual Prepend (before)"))
-	-- 		vim.keymap.set("v", "<C-g>i", ":<C-u>'<,'>GpImplement<cr>", keymapOptions("Implement selection"))
-	--
-	-- 		vim.keymap.set({ "n", "i" }, "<C-g>gp", "<cmd>GpPopup<cr>", keymapOptions("Popup"))
-	-- 		vim.keymap.set({ "n", "i" }, "<C-g>ge", "<cmd>GpEnew<cr>", keymapOptions("GpEnew"))
-	-- 		vim.keymap.set({ "n", "i" }, "<C-g>gn", "<cmd>GpNew<cr>", keymapOptions("GpNew"))
-	-- 		vim.keymap.set({ "n", "i" }, "<C-g>gv", "<cmd>GpVnew<cr>", keymapOptions("GpVnew"))
-	-- 		vim.keymap.set({ "n", "i" }, "<C-g>gt", "<cmd>GpTabnew<cr>", keymapOptions("GpTabnew"))
-	--
-	-- 		vim.keymap.set("v", "<C-g>gp", ":<C-u>'<,'>GpPopup<cr>", keymapOptions("Visual Popup"))
-	-- 		vim.keymap.set("v", "<C-g>ge", ":<C-u>'<,'>GpEnew<cr>", keymapOptions("Visual GpEnew"))
-	-- 		vim.keymap.set("v", "<C-g>gn", ":<C-u>'<,'>GpNew<cr>", keymapOptions("Visual GpNew"))
-	-- 		vim.keymap.set("v", "<C-g>gv", ":<C-u>'<,'>GpVnew<cr>", keymapOptions("Visual GpVnew"))
-	-- 		vim.keymap.set("v", "<C-g>gt", ":<C-u>'<,'>GpTabnew<cr>", keymapOptions("Visual GpTabnew"))
-	--
-	-- 		vim.keymap.set({ "n", "i" }, "<C-g>x", "<cmd>GpContext<cr>", keymapOptions("Toggle Context"))
-	-- 		vim.keymap.set("v", "<C-g>x", ":<C-u>'<,'>GpContext<cr>", keymapOptions("Visual Toggle Context"))
-	--
-	-- 		vim.keymap.set({ "n", "i", "v", "x" }, "<C-g>s", "<cmd>GpStop<cr>", keymapOptions("Stop"))
-	-- 		vim.keymap.set({ "n", "i", "v", "x" }, "<C-g>n", "<cmd>GpNextAgent<cr>", keymapOptions("Next Agent"))
-	-- 	end,
-	-- },
+	{
+		"seblyng/roslyn.nvim",
+		ft = { "cs" },
+		opts = {},
+	},
+	{
+		"ramboe/ramboe-dotnet-utils",
+		dependencies = { "mfussenegger/nvim-dap" },
+	},
+	{
+		"mfussenegger/nvim-dap",
+		dependencies = {
+			"williamboman/mason.nvim",
+			"nvim-telescope/telescope.nvim",
+		},
+		config = function()
+			local dap = require("dap")
+
+			vim.fn.sign_define("DapBreakpoint", {
+				text = "🛑",
+				texthl = "Error",
+				linehl = "",
+				numhl = "",
+			})
+
+			vim.fn.sign_define("DapBreakpointCondition", {
+				text = "🔵",
+				texthl = "WarningMsg",
+				linehl = "",
+				numhl = "",
+			})
+
+			vim.fn.sign_define("DapLogPoint", {
+				text = "📄",
+				texthl = "Question",
+				linehl = "",
+				numhl = "",
+			})
+
+			local netcoredbg_adapter = {
+				type = "executable",
+				command = vim.fn.stdpath("data") .. "/mason/packages/netcoredbg/netcoredbg",
+				args = { "--interpreter=vscode" },
+			}
+
+			dap.adapters.netcoredbg = netcoredbg_adapter
+			dap.adapters.coreclr = netcoredbg_adapter
+
+			dap.configurations.cs = {
+				{
+					type = "coreclr",
+					name = "Launch - netcoredbg",
+					request = "launch",
+					program = function()
+						return require("dap-dll-autopicker").build_dll_path()
+					end,
+					env = {
+						ASPNETCORE_ENVIRONMENT = function()
+							return "Development"
+						end,
+					},
+					cwd = function()
+						return vim.fn.getcwd()
+					end,
+				},
+			}
+		end,
+		keys = {
+			{
+				"<leader>dd",
+				function()
+					require("dap").run()
+				end,
+				desc = "Start/Restart Debugging",
+			},
+			{
+				"<leader>dc",
+				function()
+					require("dap").continue()
+				end,
+				desc = "Continue",
+			},
+			{
+				"<leader>do",
+				function()
+					require("dap").step_over()
+				end,
+				desc = "Step Over",
+			},
+			{
+				"<leader>di",
+				function()
+					require("dap").step_into()
+				end,
+				desc = "Step Into",
+			},
+			{
+				"<leader>dO",
+				function()
+					require("dap").step_out()
+				end,
+				desc = "Step Out",
+			},
+			{
+				"<leader>db",
+				function()
+					require("dap").toggle_breakpoint()
+				end,
+				desc = "Toggle Breakpoint",
+			},
+			{
+				"<leader>dB",
+				function()
+					require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: "))
+				end,
+				desc = "Set Conditional Breakpoint",
+			},
+			{
+				"<leader>dr",
+				function()
+					require("dap").repl.open()
+				end,
+				desc = "Open REPL",
+			},
+			{
+				"<leader>dl",
+				function()
+					require("dap").run_last()
+				end,
+				desc = "Run Last",
+			},
+			{
+				"<leader>ds",
+				function()
+					require("dap").disconnect()
+				end,
+				desc = "Stop Debugging",
+			},
+			{
+				"<leader>de",
+				function()
+					local expr = vim.fn.input("Evaluate Expression: ")
+					print(vim.inspect(require("dap").evaluate(expr)))
+				end,
+				desc = "Evaluate Expression in Debugger",
+			},
+			{
+				"<leader>dw",
+				function()
+					require("dap").set_watch(vim.fn.input("Watch expression: "))
+				end,
+				desc = "Add/Remove Watch Expression",
+			},
+			{
+				"<leader>dv",
+				function()
+					require("dap.ui.variables").hover()
+				end,
+				desc = "Show Debugging Variables",
+			},
+			{
+				"<leader>dB",
+				function()
+					require("dap").step_back()
+				end,
+				desc = "Step Back",
+			},
+			{
+				"<leader>dp",
+				function()
+					require("dap").pause()
+				end,
+				desc = "Pause Debugging",
+			},
+			{
+				"<leader>dlp",
+				function()
+					require("custom_dap_utils").pick_launch_profile() -- Open the launch profile picker
+				end,
+				desc = "Select Launch Profile from Multiple Projects",
+			},
+		},
+	},
+	{
+		"rcarriga/nvim-dap-ui",
+		dependencies = { "mfussenegger/nvim-dap" },
+		keys = {
+			{
+				"<leader>du",
+				function()
+					require("dapui").toggle()
+				end,
+				desc = "Toggle DAP UI",
+			},
+		},
+		config = function()
+			local dap, dapui = require("dap"), require("dapui")
+			dapui.setup()
+			dap.listeners.before.attach.dapui_config = function()
+				dapui.open()
+			end
+			dap.listeners.before.launch.dapui_config = function()
+				dapui.open()
+			end
+			dap.listeners.before.event_terminated.dapui_config = function()
+				dapui.close()
+			end
+			dap.listeners.before.event_exited.dapui_config = function()
+				dapui.close()
+			end
+		end,
+	},
+	{
+		"theHamsta/nvim-dap-virtual-text",
+		dependencies = { "mfussenegger/nvim-dap" },
+		config = function()
+			require("nvim-dap-virtual-text").setup()
+		end,
+	},
 }
